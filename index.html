@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>My Valentine ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background:linear-gradient(to right,#ff758c,#ff7eb3);
+text-align:center;
+color:white;
+overflow-x:hidden;
+}
+
+section{display:none;padding:20px;}
+.active{display:block;}
+
+input,button{
+padding:10px;
+border:none;
+border-radius:20px;
+margin:10px;
+font-size:16px;
+}
+
+button{
+background:#ff3366;
+color:white;
+}
+
+img{
+width:80%;
+max-width:300px;
+border-radius:20px;
+margin:10px;
+}
+
+video{width:90%;border-radius:15px;}
+
+#hearts span{
+position:fixed;
+font-size:20px;
+animation:float 6s linear infinite;
+}
+
+@keyframes float{
+0%{bottom:-20px;opacity:1;}
+100%{bottom:100%;opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- MUSIC -->
+<audio autoplay loop>
+<source src="song.mp3">
+</audio>
+
+<!-- LOGIN -->
+<section id="login" class="active">
+<h1>Enter Your Name 💕</h1>
+<input id="name" placeholder="Your Name">
+<br>
+<button onclick="start()">Continue ❤️</button>
+</section>
+
+<!-- HOME -->
+<section id="home">
+<h1 id="welcome"></h1>
+<p>Countdown to Valentine 💘</p>
+<h2 id="countdown"></h2>
+
+<button onclick="openPage('gallery')">Our Memories 📸</button>
+<button onclick="openPage('quiz')">Love Quiz 💌</button>
+<button onclick="openPage('secret')">Secret 🔐</button>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+<h1>Our Memories ❤️</h1>
+
+<img src="photo1.jpg">
+<img src="photo2.jpg">
+<img src="photo3.jpg">
+
+<video controls>
+<source src="video.mp4">
+</video>
+
+<br>
+<button onclick="openPage('home')">Back</button>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz">
+<h1>Love Quiz 💕</h1>
+
+<p>Do you love me? 😘</p>
+
+<button onclick="alert('I Love You Too ❤️')">Yes 💖</button>
+<button onclick="alert('Still I Love You 😍')">No 😅</button>
+
+<br><br>
+<button onclick="openPage('home')">Back</button>
+</section>
+
+<!-- SECRET -->
+<section id="secret">
+<h1>Secret Message 🔐</h1>
+
+<button onclick="showSecret()">Open 💝</button>
+
+<p id="msg"></p>
+
+<br>
+<button onclick="openPage('home')">Back</button>
+</section>
+
+<div id="hearts"></div>
+
+<script>
+
+function start(){
+let n=document.getElementById("name").value;
+if(n=="")return alert("Enter name");
+
+document.getElementById("welcome").innerText=
+"Welcome "+n+" ❤️";
+
+openPage("home");
+}
+
+function openPage(id){
+document.querySelectorAll("section")
+.forEach(s=>s.classList.remove("active"));
+
+document.getElementById(id)
+.classList.add("active");
+}
+
+/* Countdown */
+let vDay=new Date("Feb 14, 2026").getTime();
+
+setInterval(()=>{
+let now=new Date().getTime();
+let d=vDay-now;
+
+let days=Math.floor(d/(1000*60*60*24));
+let hrs=Math.floor((d%(1000*60*60*24))/(1000*60*60));
+let min=Math.floor((d%(1000*60*60))/(1000*60));
+let sec=Math.floor((d%(1000*60))/1000);
+
+document.getElementById("countdown").innerText=
+days+"d "+hrs+"h "+min+"m "+sec+"s";
+},1000);
+
+/* Secret */
+function showSecret(){
+document.getElementById("msg").innerText=
+"I Promise To Love You Forever ❤️😘";
+}
+
+/* Hearts */
+setInterval(()=>{
+let h=document.createElement("span");
+h.innerHTML="❤️";
+h.style.left=Math.random()*100+"%";
+h.style.bottom="0px";
+document.getElementById("hearts").appendChild(h);
+
+setTimeout(()=>h.remove(),6000);
+},300);
+
+</script>
+
+</body>
+</html>
